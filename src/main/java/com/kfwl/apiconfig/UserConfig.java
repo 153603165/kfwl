@@ -49,5 +49,4 @@ public class UserConfig {
         );
         return apiInfo;
     }
-
 }
