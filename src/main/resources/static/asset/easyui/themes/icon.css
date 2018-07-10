@@ -1,0 +1,534 @@
+.icon-map{
+	background:url('icons/extjs_icons/map/map_add.png') no-repeat center center;
+}
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat center center;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat center center;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat center center;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat center center;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat center center;
+}
+.icon-money{
+	background:url('icons/extjs_icons/money.png') no-repeat center center;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat center center;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat center center;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat center center;
+}
+.icon-clear{
+	background:url('icons/clear.png') no-repeat center center;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat center center;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat center center;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat center center;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat center center;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat center center;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat center center;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat center center;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat center center;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat center center;
+}
+.icon-tip{
+	height:28px;
+	background:url('icons/tip.png') no-repeat center center;
+}
+.icon-filter{
+	background:url('icons/filter.png') no-repeat center center;
+}
+
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat center center;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat center center;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat center center;
+}
+
+.icon-large-picture{
+	background:url('icons/large_picture.png') no-repeat center center;
+}
+.icon-large-clipart{
+	background:url('icons/large_clipart.png') no-repeat center center;
+}
+.icon-large-shapes{
+	background:url('icons/large_shapes.png') no-repeat center center;
+}
+.icon-large-smartart{
+	background:url('icons/large_smartart.png') no-repeat center center;
+}
+.icon-large-chart{
+	background:url('icons/large_chart.png') no-repeat center center;
+}
+
+.icon-mini-full_screen{
+    background:url('icons/mini_full_screen.png') no-repeat center center;
+}
+.icon-mini-exit_full_screen{
+    background:url('icons/mini_exit_full_screen.png') no-repeat center center;
+}
+
+.icon-full_screen{
+    background:url('icons/full_screen.png') no-repeat center center;
+}
+.icon-exit_full_screen{
+    background:url('icons/exit_full_screen.png') no-repeat center center;
+}
+.icon-next{
+    background:url('icons/next.png') no-repeat center center;
+}
+.icon-gears
+{
+    background:url('icons/extjs_icons/gears.png') no-repeat center center;
+}
+.icon-application{
+    background:url('icons/extjs_icons/application/application.png') no-repeat center center;
+}
+.icon-user{
+    background:url('icons/extjs_icons/user/user.png') no-repeat center center;
+}
+.icon-user_red{
+    background:url('icons/extjs_icons/user/user_red.png') no-repeat center center;
+}
+.icon-lock{
+    background:url('icons/extjs_icons/lock/lock.png') no-repeat center center;
+}
+.icon-group{
+    background:url('icons/extjs_icons/group/group.png') no-repeat center center;
+}
+.icon-date{
+    background:url('icons/extjs_icons/Date/date.png') no-repeat center center;
+}
+.icon-calendar{
+    background:url('icons/extjs_icons/calendar/calendar.png') no-repeat center center;
+}
+.icon-bug{
+    background:url('icons/extjs_icons/bug/bug.png') no-repeat center center;
+}
+.icon-email{
+    background:url('icons/extjs_icons/email/email.png') no-repeat center center;
+}
+.icon-folder{
+    background:url('icons/extjs_icons/folder/folder.png') no-repeat center center;
+}
+.icon-book{
+    background:url('icons/extjs_icons/book.png') no-repeat center center;
+}
+.icon-computer{
+    background:url('icons/extjs_icons/computer.png') no-repeat center center;
+}
+.icon-database{
+    background:url('icons/extjs_icons/database.png') no-repeat center center;
+}
+.icon-disk{
+    background:url('icons/extjs_icons/disk.png') no-repeat center center;
+}
+.icon-help{
+    background:url('icons/extjs_icons/help.png') no-repeat center center;
+}
+.icon-link{
+    background:url('icons/extjs_icons/link.png') no-repeat center center;
+}
+.icon-server{
+    background:url('icons/extjs_icons/server.png') no-repeat center center;
+}
+.icon-film{
+    background:url('icons/extjs_icons/film/film.png') no-repeat center center;
+}
+
+.icon-map{
+    background:url('icons/extjs_icons/map/map.png') no-repeat center center;
+}
+.icon-monitor{
+    background:url('icons/extjs_icons/monitor/monitor.png') no-repeat center center;
+}
+.icon-printer{
+    background:url('icons/extjs_icons/printer/printer.png') no-repeat center center;
+}
+.icon-camera{
+    background:url('icons/extjs_icons/camera/camera.png') no-repeat center center;
+}
+.icon-television{
+    background:url('icons/extjs_icons/television/television.png') no-repeat center center;
+}
+.icon-ipod{
+    background:url('icons/extjs_icons/ipod/ipod.png') no-repeat center center;
+}
+.icon-vcard{
+    background:url('icons/extjs_icons/vcard/vcard.png') no-repeat center center;
+}
+.icon-world{
+    background:url('icons/extjs_icons/world/world.png') no-repeat center center;
+}
+.icon-chart_bar{
+    background:url('icons/extjs_icons/chart/chart_bar.png') no-repeat center center;
+}
+.icon-chart_curve{
+    background:url('icons/extjs_icons/chart/chart_curve.png') no-repeat center center;
+}
+.icon-chart_line{
+    background:url('icons/extjs_icons/chart/chart_line.png') no-repeat center center;
+}
+.icon-chart_pie{
+    background:url('icons/extjs_icons/chart/chart_pie.png') no-repeat center center;
+}
+.icon-more{
+	background:url('icons/more.png') no-repeat center center;
+}
+.icon-refresh{
+	background:url('icons/refresh.png') no-repeat center center;
+}
+.icon-upload{
+	background:url('icons/upload.png') no-repeat center center;
+}
+.icon-up{
+    background:url('icons/extjs_icons/arrow/arrow_up.png') no-repeat center center;
+}
+.icon-down{
+    background:url('icons/extjs_icons/arrow/arrow_down.png') no-repeat center center;
+}
+.icon-mail-go{
+    background:url('icons/extjs_icons/email/email_go.png') no-repeat center center;
+}
+.icon-menu{
+    background:url('icons/icon_menu.png') no-repeat center center;
+}
+.icon-1{
+    background:url('icons/icon_1.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-1{
+    background:url('icons/icon_1_s.png') no-repeat center center;
+}
+.icon-1,.icon-2,.icon-3,.icon-4,.icon-5,.icon-6,.icon-7,.icon-8,.icon-9,.icon-10,.icon-11,.icon-12,.icon-13,.icon-14,.icon-15{
+	width:22px; 
+}
+.icon-2{
+    background:url('icons/icon_2.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-2{
+    background:url('icons/icon_2_s.png') no-repeat center center;
+}
+.icon-3{
+    background:url('icons/icon_3.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-3{
+    background:url('icons/icon_3_s.png') no-repeat center center;
+}
+.icon-4{
+    background:url('icons/icon_4.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-4{
+    background:url('icons/icon_4_s.png') no-repeat center center;
+}
+.icon-5{
+    background:url('icons/icon_5.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-5{
+    background:url('icons/icon_5_s.png') no-repeat center center;
+}
+.icon-6{
+    background:url('icons/icon_6.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-6{
+    background:url('icons/icon_6_s.png') no-repeat center center;
+}
+.icon-7{
+    background:url('icons/icon_7.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-7{
+    background:url('icons/icon_7_s.png') no-repeat center center;
+}
+.icon-8{
+    background:url('icons/icon_8.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-8{
+    background:url('icons/icon_8_s.png') no-repeat center center;
+}
+.icon-9{
+    background:url('icons/icon_9.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-9{
+    background:url('icons/icon_9_s.png') no-repeat center center;
+}
+.icon-10{
+    background:url('icons/icon_10.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-10{
+    background:url('icons/icon_10_s.png') no-repeat center center;
+}
+.icon-11{
+    background:url('icons/icon_11.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-11{
+    background:url('icons/icon_11_s.png') no-repeat center center;
+}
+.icon-12{
+    background:url('icons/icon_12.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-12{
+    background:url('icons/icon_12_s.png') no-repeat center center;
+}
+.icon-13{
+    background:url('icons/icon_13.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-13{
+    background:url('icons/icon_13_s.png') no-repeat center center;
+}
+.icon-14{
+    background:url('icons/icon_14.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-14{
+    background:url('icons/icon_14_s.png') no-repeat center center;
+}
+.icon-15{
+    background:url('icons/icon_15.png') no-repeat center center;
+}
+.accordion .accordion-header-selected .icon-15{
+    background:url('icons/icon_15_s.png') no-repeat center center;
+}
+/* animation */
+
+@keyframes icon-bounce {
+  0%, 100% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  25% {
+    -moz-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  50% {
+    -moz-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  75% {
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+  }
+
+  85% {
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+  }
+}
+@-webkit-keyframes icon-bounce {
+  0%, 100% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  25% {
+    -moz-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  50% {
+    -moz-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  75% {
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+  }
+
+  85% {
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+  }
+}
+@-moz-keyframes icon-bounce {
+  0%, 100% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  25% {
+    -moz-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  50% {
+    -moz-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  75% {
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+  }
+
+  85% {
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+  }
+}
+@-o-keyframes icon-bounce {
+  0%, 100% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  25% {
+    -moz-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  50% {
+    -moz-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  75% {
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+  }
+
+  85% {
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+  }
+}
+
+/* styles */
+.accordion .accordion-header:hover .icon-1{
+	background:url('icons/icon_1_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-2{
+	background:url('icons/icon_2_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-3{
+	background:url('icons/icon_3_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-4{
+	background:url('icons/icon_4_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-5{
+	background:url('icons/icon_5_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-6{
+	background:url('icons/icon_6_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-7{
+	background:url('icons/icon_7_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-8{
+	background:url('icons/icon_8_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-9{
+	background:url('icons/icon_9_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-10{
+	background:url('icons/icon_10_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-11{
+	background:url('icons/icon_11_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-12{
+	background:url('icons/icon_12_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-13{
+	background:url('icons/icon_13_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-14{
+	background:url('icons/icon_14_s.png') no-repeat center center;
+}
+.accordion .accordion-header:hover .icon-15{
+	background:url('icons/icon_15_s.png') no-repeat center center;
+}
+
+.accordion .accordion-header:hover .icon-1,
+.accordion .accordion-header:hover .icon-2,
+.accordion .accordion-header:hover .icon-3,
+.accordion .accordion-header:hover .icon-4,
+.accordion .accordion-header:hover .icon-5,
+.accordion .accordion-header:hover .icon-6,
+.accordion .accordion-header:hover .icon-7,
+.accordion .accordion-header:hover .icon-8,
+.accordion .accordion-header:hover .icon-9,
+.accordion .accordion-header:hover .icon-10,
+.accordion .accordion-header:hover .icon-11,
+.accordion .accordion-header:hover .icon-12,
+.accordion .accordion-header:hover .icon-13,
+.accordion .accordion-header:hover .icon-14,
+.accordion .accordion-header:hover .icon-15{
+  -webkit-animation: icon-bounce 0.5s alternate;
+  -moz-animation: icon-bounce 0.5s alternate;
+  -o-animation: icon-bounce 0.5s alternate;
+  animation: icon-bounce 0.5s alternate;
+}

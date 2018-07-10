@@ -1,0 +1,18 @@
+.cell_selected {
+	background-color:rgb(99,191,99);
+}
+.over {
+	background-color:#CCCCCC;
+	opacity: 50%;
+}
+.day1,.day2,.day3,.day4,.day5,.day6,.day7 {
+	width: 20px;
+}		
+#all {
+	width:100px;
+	height:20px ;
+}
+
+#setting span{
+	cursor: pointer;
+}

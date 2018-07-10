@@ -1,0 +1,130 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>管理中心</title>
+<link rel="stylesheet" type="text/css" href="css/default.css" />
+<link rel="stylesheet" type="text/css" href="asset/js/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="css/icon.css" />
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src='js/outlook2.js'></script>
+<script type="text/JavaScript" th:inline="javascript">
+	/*<![CDATA[*/
+	var _menus =[[${menu}]];
+	function editPassword(){
+		$('#editPassword_form').form('clear');
+		$('#editPassword_div').show();
+		$('#editPassword_div').window({
+			left:($(window).width()-340)/2,
+			top:($(window).height()-560)/2,					
+			width:340,
+			height:234,
+			modal:true
+		});
+		$('#editPassword_div').show();
+		$('#editPassword_div').window('open');
+	}
+	//新增账户提交按钮
+	function editPassword_addBtn(){
+		var oldPassword=$("#oldPassword").textbox("getValue");
+		var newPassword=$("#newPassword").textbox("getValue");
+		var repPassword=$("#repPassword").textbox("getValue"); 
+		if(oldPassword==''){
+			eu.showMsg('请输入原密码');
+			return false;
+		}
+		if(newPassword==''){
+			eu.showMsg('请输入新密码');
+			return false;
+		}
+		if(repPassword==''){
+			eu.showMsg('请重复新密码');
+			return false;
+		}
+		if(newPassword!=repPassword){
+			eu.showMsg('新密码两次输入不一致');
+			return false;
+		}
+		$.ajax({url:'/user/updatePassword',data:{"oldPassword":oldPassword,"newPassword":newPassword},type:'put',
+			success:function(data) {
+				if(data=="success"){
+					$('#editPassword_div').window('close');
+					$('#editPassword_form').form('clear');	
+					eu.showMsg("修改密码成功");
+				}else{
+					eu.showMsg(data);
+				}
+			},error : function(xhr,textStatus,errorThrown){
+				var result=JSON.parse(xhr.responseText);
+			    eu.showMsg(result.message);
+		    }
+		});	
+	}
+	//新增账户取消按钮
+	function editPassword_cancelBtn(){
+		$('#editPassword_form').form('clear');
+		$('#editPassword_div').window('close');
+	}
+	/*]]>*/
+</script>
+</head>
+<body class="easyui-layout" style="overflow-y: hidden" scroll="no">
+	<div th:replace="include/include::html" ></div>  
+	<noscript>
+		<div style="position: absolute; z-index: 100000; height: 2046px; top: 0px; left: 0px; width: 100%; background: white; text-align: center;">
+			<img src="imgs/noscript.gif" alt='抱歉，请开启脚本支持！' />
+		</div>
+	</noscript>
+	<div region="north" split="true" border="false"
+		style="overflow: hidden; height: 30px; background: url(img/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%; line-height: 20px; color: #fff; font-family: Verdana, 微软雅黑, 黑体">
+		<span style="float: right; padding-right: 20px;" class="head">欢迎您 ，<th:block th:text="${username}"></th:block>&nbsp;&nbsp;&nbsp; <a href="#" id="editpass" onclick="editPassword()">修改密码</a> <a href="/logout" id="logout">安全退出</a></span>
+		<span style="padding-left: 10px; font-size: 16px;"><img src="img/blocks.gif" width="20" height="20"
+			align="absmiddle" /> 后台管理中心</span>
+	</div>
+	<div region="south" split="true" style="height: 30px; background: #D2E0F2;">
+		<div class="footer">有问题请联系超级管理员</div>
+	</div>
+	<div region="west" split="true" title="导航菜单" style="width: 180px;" id="west">
+		<div class="easyui-accordion" fit="true" border="false">
+			<!--  导航内容 -->
+
+		</div>
+	</div>
+	<div id="mainPanle" region="center" style="background: #eee; overflow-y: hidden">
+		<div id="tabs" class="easyui-tabs" fit="true" border="false">
+			<div title="欢迎使用" style="padding: 20px; overflow: hidden;" id="home">
+
+				<h1>欢迎使用!</h1>
+
+			</div>
+		</div>
+	</div>
+	
+	<div id="mm" class="easyui-menu" style="width: 200px;">
+		<div id="mm-tabclose">关闭</div>
+		<div id="mm-tabcloseall">全部关闭</div>
+		<div id="mm-tabcloseother">除此之外全部关闭</div>
+		<div class="menu-sep"></div>
+		<div id="mm-tabcloseright">当前页右侧全部关闭</div>
+		<div id="mm-tabcloseleft">当前页左侧全部关闭</div>
+		<div class="menu-sep"></div>
+		<div id="mm-exit">退出</div>
+	</div>
+	<!-- 修改角色弹出框 -->
+	<div id="editPassword_div" style="padding: 20px; display: none;" class="easyui-window" title="修改密码" data-options="closed:true">
+		<form id="editPassword_form" method="post">
+			<div>
+				<b><span>原密码：</span></b> <input type="password" name="oldPassword" class="easyui-textbox" id="oldPassword" style="width: 130px;"/><br /> <br />
+			</div>
+			<div>
+				<b><span>新密码：</span></b> <input type="password" name="newPassword" id="newPassword" class="easyui-textbox" style="width: 130px;"/><br /> <br />
+			</div>
+			<div>
+				<b><span>请确认：</span></b> <input type="password" name="repPassword" id="repPassword" class="easyui-textbox" style="width: 130px;" /><br /> <br />
+			</div>
+			<button type="button" class="easyui-linkbutton" id="editPassword_addBtn_id" onclick="editPassword_addBtn()">提交</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" class="easyui-linkbutton" id="editPassword_cancelBtn_id" onclick="editPassword_cancelBtn()">取消</button>
+		</form>
+	</div>
+</body>
+</html>

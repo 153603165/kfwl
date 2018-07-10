@@ -1,0 +1,235 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+	<div th:replace="include/include::html"></div>
+	<!--账户下的用户列表-->
+	<table id="billingRecord_dg" style="width: auto;"></table>
+	<!--菜单工具栏-->
+	<div id="billingRecord_toolbar" style="padding:2px 5px;">
+		<form method="POST" enctype="multipart/form-data"  id="billingRecord_upload_form">
+       		<input class="easyui-filebox" id="billingRecord_uploadFile" data-options="prompt:'请选择文件',buttonAlign:'left'" name="file" style="width:200px;"/>
+       		<a href="#" type="button" onclick="uploadBillingRecord()" class="easyui-linkbutton" id="billingRecord_upload_form_btn" data-options="iconCls: 'icon-add'" style="width:70px">确认</a>&nbsp;&nbsp;&nbsp;
+			<a href="/billingRecord/excelDemoDownload"  data-options="iconCls: 'icon-redo'" class="easyui-linkbutton">下载模板</a>
+			
+			<div style="float:right;margin-right:10px">
+				<input id="billingRecord_search_name" data-options="width:100,prompt:'按用户名称搜索'" class="easyui-textbox"/>
+	            <input type="text" class="easyui-textbox" name="companyName" id="billingRecord_search_companyName" data-options="width:150,prompt:'按所属公司搜索'"/>
+	            <input type="text" name="creditCode" class="easyui-textbox" id="billingRecord_search_creditCode" data-options="width:120,prompt:'按信用代码搜索'"/>
+				日期: <input id="billingRecord_datefrom" type="text" style="width:98px" class="easyui-my97" data-options=" editable:false,showSeconds: false ,dateFmt:'yyyy/MM'"/>  - 
+				<input id="billingRecord_dateto" type="text" style="width:98px" class="easyui-my97" data-options=" editable:false,showSeconds: false ,dateFmt:'yyyy/MM'"/> &nbsp;&nbsp;
+				<a href="#" id="billingRecord_searchdate" data-options="iconCls: 'icon-search'" class="easyui-linkbutton" onclick="billingRecord_searchdate_btn()" style="width:80px">查询</a>
+				<a href="javascript:void(0)" id="billingRecord_deleteBtn" class="easyui-linkbutton" onclick="delBillingRecord()" data-options="iconCls : 'icon-remove'">选中行删除</a>
+				<a href="javascript:void(0)" id="billingRecord_removeByConditionBtn" class="easyui-linkbutton" onclick="removeByCondition()">按左侧查询条件删除</a>
+			</div>
+        </form>
+	</div>
+</body>
+<script type="text/JavaScript" th:inline="javascript">
+/*<![CDATA[*/
+var billingRecord_row="";
+var id="";
+$(document).ready(function(){
+	var regName="";
+	$('#billingRecord_dg').datagrid({
+		url: '/billingRecord',
+//		toolbar: '#billingRecord_toolbar',
+		method:'get',
+		fitColumns:true,
+		striped: true,
+		rownumbers: true,
+		pagination: true, //分页控件 
+		pageNumber: 1,
+		pageSize: 10,
+		pageList: [10,20,40],
+		sortName: 'id',
+		pagePosition: 'both',
+		singleSelect: false,
+		selectOnCheck: true,
+		checkOnSelect: true,
+		onLoadSuccess: function(data) {
+		//待写
+		},
+		onLoadError: function(){
+			eu.showMsg("加载用户信息失败，请联系管理员！");
+		},		
+		columns: [
+			[
+			{
+				field: 'id',
+				title: 'id',
+				hidden: true,
+				sortable :true,
+				width: 50
+			}, {
+				field: 'createTime',
+				title: '日期',
+				width: 100,
+				sortable :true,
+				align: 'center'	,
+				formatter : function(value){
+                       var date = new Date(value);
+                       var y = date.getFullYear();
+                       var m = date.getMonth() + 1;
+                       var d = date.getDate();
+                       return y + '-' +m + '-' + d;
+                }
+			}, {
+				field: 'companyName',
+				title: '所属公司',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'regName',
+				title: '注册人',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'individualName',
+				title: '个体名称',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'creditCode',
+				title: '信用代码',
+				width: 100,
+				align: 'center'
+			}, {
+				field: 'taxAmount',
+				title: '含税金额',
+				width: 150,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'noTaxAmount',
+				title: '不含税金额',
+				width: 150,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'tax',
+				title: '税金3%',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}]
+		],
+		toolbar:'#billingRecord_toolbar',
+		onSelect: function(rowIndex, rowData) {
+			billingRecord_row = rowData;
+			id=rowData.id;
+			regName = rowData.regName;
+		}
+	});
+})
+//查询按钮
+function billingRecord_searchdate_btn(){
+	var dateFrom=$("#billingRecord_datefrom").val();
+	var dateTo=$("#billingRecord_dateto").val();
+	var regName=$("#billingRecord_search_name").textbox('getValue');
+	var company=$("#billingRecord_search_companyName").textbox('getValue');
+	var creditCode=$("#billingRecord_search_creditCode").textbox('getValue');
+	$('#billingRecord_dg').datagrid('options').pageNumber=1;
+	$('#billingRecord_dg').datagrid({ 
+		url: '/billingRecord',
+		method:'get',
+		queryParams:{
+			dateFrom:dateFrom,
+			dateTo:dateTo,
+			regName:regName,
+			company:company,
+			creditCode:creditCode
+		}
+	});
+}
+
+/**
+ *  删除
+ */
+function delBillingRecord(){
+	var ids = new Array();
+	var rows = $('#billingRecord_dg').datagrid('getSelections');
+	for(var i=0; i<rows.length; i++){
+		ids[i]= rows[i].id;
+	}
+	if(rows.length==0){
+		eu.showMsg("请选择一条记录");
+		return false;
+	}
+	$.messager.confirm('删除', '您想要删除吗？', function(r){
+	    if (r){
+	    	$.ajax({
+				url : '/billingRecord/' + ids,
+				type : 'delete',
+				success : function(data) {
+					$('#billingRecord_dg').datagrid('reload');
+				},error : function(xhr,textStatus,errorThrown){
+					var result=JSON.parse(xhr.responseText);
+				    eu.showMsg(result.message);
+			    }
+			});
+	    }
+	});
+}
+/**
+ * 按条件删除
+ */
+function removeByCondition(){
+	$.messager.confirm('删除', '您想要删除吗？', function(r){
+		var dateFrom=$("#billingRecord_datefrom").val();
+		var dateTo=$("#billingRecord_dateto").val();
+		var regName=$("#billingRecord_search_name").textbox('getValue');
+		var company=$("#billingRecord_search_companyName").textbox('getValue');
+		var creditCode=$("#billingRecord_search_creditCode").textbox('getValue');
+		if (r){
+			$.ajax({
+				url : '/billingRecord/removeByCondition',
+				type : 'delete',
+				data:{"para":Math.random(),"dateFrom":dateFrom,"dateTo":dateTo,"regName":regName,"company":company,"creditCode":creditCode},
+				success : function(data) {
+					$('#billingRecord_dg').datagrid('reload');
+				},error : function(xhr,textStatus,errorThrown){
+					var result=JSON.parse(xhr.responseText);
+				    eu.showMsg(result.message);
+			    }
+			});
+		}
+		
+	});
+}
+function uploadBillingRecord(){
+	if($("#billingRecord_uploadFile").textbox('getValue')=="")return;
+	load();
+	$("#billingRecord_upload_form").form('submit', {
+        url: '/billingRecord/uploadBillingRecord',
+        data: $("#billingRecord_upload_form").serialize(),
+        type :'post',
+        success: function (result) {
+        	$("#billingRecord_uploadFile").textbox('setValue',"");
+        	$('#billingRecord_dg').datagrid('reload');
+        	disLoad();
+        	eu.showMsg("上传完成");
+        },error : function(xhr,textStatus,errorThrown){
+			var result=JSON.parse(xhr.responseText);
+		    eu.showMsg(result.message);
+	    }
+    });
+}
+//弹出加载层
+function load() {  
+    $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");  
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在上传，请稍候。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 45) / 2 });  
+}  
+  
+//取消加载层  
+function disLoad() {  
+    $(".datagrid-mask").remove();  
+    $(".datagrid-mask-msg").remove();  
+}
+/*]]>*/
+</script>	
+</html>

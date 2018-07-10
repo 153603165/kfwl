@@ -1,0 +1,365 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<div th:replace="include/include::html"></div>
+
+	<!--账户下的用户列表-->
+	<table id="userManager_dg" style="width: auto;"></table>
+	<!--菜单工具栏-->
+	<div id="userManager_toolbar" style="padding: 2px 5px;">
+		<input id="userManager_search_name" class="easyui-textbox" data-options="width:150,prompt:'按用户名称搜索'" /> 日期: <input id="userManager_datefrom"
+			type="text" style="width: 98px" class="easyui-datebox" data-options="editable:false,showSeconds: false" /> - <input id="userManager_dateto"
+			type="text" style="width: 98px" class="easyui-datebox" data-options=" editable:false,showSeconds: false" /> &nbsp;&nbsp; <a href="#"
+			id="userManager_searchdate" class="easyui-linkbutton" data-options="iconCls: 'icon-search'" onclick="userManager_searchdate_btn()"
+			style="width: 80px">查询</a> <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" href="#" onclick="userManager_add()">增加</a> <a
+			class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" href="#" onclick="userManager_editRole()">修改角色类型</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls :'icon-remove'" onclick="deluserManager()">选中行删除</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls :'icon-ok'" onclick="aduit(1)">审核通过</a> <a href="javascript:void(0)"
+			class="easyui-linkbutton" data-options="iconCls :'icon-cancel'" onclick="aduit(2)">审核不予通过</a>
+	</div>
+
+
+	<!--弹出窗口-->
+	<!-- 增加帐号弹出框 -->
+	<div id="user_addWin" style="padding: 20px; display: none;" class="easyui-window" title="增加帐号" data-options="closed:true">
+		<form id="user_addForm" method="post" enctype="application/json;charset=utf-8">
+			<div>
+				<b><span>账户名称：</span></b> <input type="text" name="username" id="user_add_username" class="easyui-textbox" style="width: 130px;" value=""
+					data-options="required:true" /><br /> <br />
+			</div>
+			<div>
+				<b><span>账户密码：</span></b> <input type="password" name="password" id="user_add_password" class="easyui-textbox" style="width: 130px;" value=""
+					data-options="required:true" /><br /> <br />
+			</div>
+			<div id="authorityType">
+				<b><span>角色选择：</span></b> <input id="user_add_roleId" name="roleIds" class="easyui-combobox"
+					data-options="url:'/role/getRoleComboboxs',multiple:true,valueField:'id',textField:'roleName',method:'get',editable:false" style="width: 100px" /> <br /> <br />
+			</div>
+			<button type="button" class="easyui-linkbutton" id="user_addWin_addBtn">提交</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" class="easyui-linkbutton" id="user_addWin_cancelBtn">取消</button>
+		</form>
+	</div>
+	<!-- 增加账户弹出框ends-->
+	<!-- 修改角色弹出框 -->
+	<div id="user_editRole" style="padding: 20px; display: none;" class="easyui-window" title="修改角色类型" data-options="closed:true">
+		<form id="user_editRoleForm" method="post" enctype="application/json;charset=utf-8">
+			<div style="display: none">
+				<b><span>账户Id：</span></b> <input type="text" name="id" id="user_editRole_id" style="width: 130px;" /><br /> <br />
+			</div>
+			<div>
+				<b><span>账户名称：</span></b> <input type="text" name="username" id="user_editRole_username" class="easyui-textbox" style="width: 130px;" value=""
+					data-options="editable:false" /><br /> <br />
+			</div>
+			<div id="authorityType">
+				<b><span>角色选择：</span></b> <input id="user_editRole_roleId" name="roleIds" class="easyui-combobox"
+					data-options="url:'/role/getRoleComboboxs',multiple:true,valueField:'id',textField:'roleName',method:'get',editable:false" style="width: 100px" /> <br /> <br />
+			</div>
+			<button type="button" class="easyui-linkbutton" id="user_editRole_addBtn">提交</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" class="easyui-linkbutton" id="user_editRole_cancelBtn">取消</button>
+		</form>
+	</div>
+	<!-- 修改角色弹出框ends-->
+</body>
+<script type="text/JavaScript" th:inline="javascript">
+/*<![CDATA[*/
+var userManager_row="";
+var id="";
+$(document).ready(function(){
+	var regName="";
+	$('#userManager_dg').datagrid({
+		url: '/user',
+//		toolbar: '#userManager_toolbar',
+		fitColumns:true,
+		striped: true,
+		rownumbers: true,
+		method: 'get',
+		pagination: true, //分页控件 
+		pageNumber: 1,
+		pageSize: 10,
+		pageList: [10,20,40],
+		sortName: 'id',
+		pagePosition: 'both',
+		singleSelect: false,
+		selectOnCheck: true,
+		checkOnSelect: true,
+		onLoadSuccess: function(data) {
+		//待写
+		},
+		onLoadError: function(){
+			eu.showMsg("加载用户信息失败，请联系管理员！");
+		},		
+		columns: [
+			[
+			{
+				field: 'id',
+				title: '用户id',
+				hidden: true,
+				sortable :true,
+				width: 50
+			}, {
+				field: 'roleIds',
+				title: '角色id',
+				hidden: true,
+				sortable :true,
+				width: 50
+			}, {
+				field: 'createTime',
+				title: '注册日期',
+				width: 100,
+				sortable :true,
+				align: 'center'	,
+				formatter : function(value){
+                       var date = new Date(value);
+                       var y = date.getFullYear();
+                       var m = date.getMonth() + 1;
+                       var d = date.getDate();
+                       return y + '-' +m + '-' + d;
+                }
+			}, {
+				field: 'username',
+				title: '用户名',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'roleNames',
+				title: '角色名称',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'aduitStatusDesc',
+				title: '审核状态',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}]
+		],
+		toolbar:'#userManager_toolbar',
+		onSelect: function(rowIndex, rowData) {
+			userManager_row = rowData;
+			id=rowData.id;
+			regName = rowData.regName;
+		}
+	});
+})
+
+
+//弹出加载层
+function load() {  
+    $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");  
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在上传，请稍候。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 45) / 2 });  
+}  
+  
+//取消加载层  
+function disLoad() {  
+    $(".datagrid-mask").remove();  
+    $(".datagrid-mask-msg").remove();  
+}
+
+//查询按钮
+function userManager_searchdate_btn(){
+	var dateFrom=$("#userManager_datefrom").textbox('getValue');
+	var dateTo=$("#userManager_dateto").textbox('getValue');
+	var username=$("#userManager_search_name").textbox('getValue');
+	$('#userManager_dg').datagrid('options').pageNumber=1;
+	$('#userManager_dg').datagrid({ 
+		url: '/user',
+		method:'get',
+		queryParams:{
+			dateFrom:dateFrom,
+			dateTo:dateTo,
+			username:username
+		}
+	});
+}
+
+/**
+ *  删除
+ */
+function deluserManager(){
+	var ids = new Array();
+	var rows = $('#userManager_dg').datagrid('getSelections');
+	for(var i=0; i<rows.length; i++){
+		ids[i]= rows[i].id;
+	}
+	if(rows.length==0){
+		eu.showMsg("请选择一条记录");
+		return false;
+	}
+	$.messager.confirm('删除', '您想要删除吗？', function(r){
+	    if (r){
+	    	$.ajax({url:'/user/'+ids,type:'delete',
+				success:function(data) {
+					$('#userManager_dg').datagrid('reload');
+				},error : function(xhr,textStatus,errorThrown){
+					var result=JSON.parse(xhr.responseText);
+				    eu.showMsg(result.message);
+			    }
+			});
+	    }
+	});
+}
+function aduit(aduitStatus){
+	var ids = new Array();
+	var rows = $('#userManager_dg').datagrid('getSelections');
+	for(var i=0; i<rows.length; i++){
+		if(rows[i].aduitStatus==1){
+			eu.showMsg("选择对象中包含正常用户!!");
+			return false;
+		}
+		ids[i]= rows[i].id;
+	}
+	if(rows.length==0){
+		eu.showMsg("请选择一条记录");
+		return false;
+	}
+	var aduitDesc="";
+	if(aduitStatus==1){
+		aduitDesc="审核通过";
+	}else if(aduitStatus==2){
+		aduitDesc="审核不予通过";
+	}
+	$.messager.confirm('审核', '确认'+aduitDesc+'吗？', function(r){
+	    if (r){
+	    	$.ajax({url:'/user/aduitUsers',data:{"para":Math.random(),"ids":ids,"aduitStatus":aduitStatus},type:'put',
+				success:function(data) {
+					$('#userManager_dg').datagrid('reload');
+				},error : function(xhr,textStatus,errorThrown){
+					var result=JSON.parse(xhr.responseText);
+				    eu.showMsg(result.message);
+			    }
+			});
+	    }
+	});
+}
+
+////新增账户按钮点击事件
+function userManager_add(){
+	$('#user_addForm').form('clear');
+	$('#user_addWin').show();
+	$('#user_addWin').window({
+		left:($(window).width()-340)/2,
+		top:($(window).height()-560)/2,					
+		width:340,
+		height:234,
+		modal:true
+	});
+	$('#user_addWin').show();
+	$('#user_addWin').window('open');
+}
+
+//新增账户提交按钮
+$('#user_addWin_addBtn').unbind('click').click(function(){
+	if($('#user_add_username').textbox('getValue')==''){
+		eu.showMsg('请输入用户名');
+		return false;
+	}else if($('#user_add_username').textbox('getValue').indexOf(' ')>=0){
+		eu.showMsg('用户名不能包含空格');
+		return false;	
+	}else if($('#user_add_username').textbox('getValue').replace(/[^\u0000-\u00ff]/g,"aa").length>15){
+		eu.showMsg("计划名称最长为15个汉字或30个英文");
+		return false;		
+	}else if($('#user_add_password').textbox('getValue')==''){
+		eu.showMsg('请输入密码');
+		return false;
+	}else if($("#user_add_roleId").combobox("getValues")==''){
+		eu.showMsg("请分配角色");
+		return false;
+	}
+
+	var username=$("#user_add_username").textbox("getValue");
+	var password=$("#user_add_password").textbox("getValue");
+	var roleIds = $("#user_add_roleId").combobox("getValues"); 
+	var user={"username":username,"password":password,"roleIds":roleIds};
+	$.ajax({url:'/user',data:JSON.stringify(user),contentType : "application/json;charset=utf-8",type:'post',
+		success:function(data) {
+			if(data=="success"){
+				$('#userManager_dg').datagrid('reload');
+				$('#user_addWin').window('close');
+				$('#user_addForm').form('clear');			
+			}else{
+				eu.showMsg(data);
+				$('#user_addForm').form('clear');
+			}
+		},error : function(xhr,textStatus,errorThrown){
+			var result=JSON.parse(xhr.responseText);
+		    eu.showMsg(result.message);
+	    }
+	});	
+})
+//新增账户取消按钮
+$('#user_addWin_cancelBtn').unbind('click').click(function(){
+	$('#user_addForm').form('clear');
+		$('#user_addWin').window('close');
+})
+/**
+ * 修改角色
+ */
+function userManager_editRole(){
+	var rows = $('#userManager_dg').datagrid('getSelections');
+	var row = $('#userManager_dg').datagrid('getSelected');
+	if (row) {
+		if (rows.length > 1) {
+			eu.showMsg("您选择了多个操作对象!");
+			return false;
+		}
+	} else {
+   	  	eu.showMsg("请选择要操作的对象！");
+        	return false;
+	}
+	$('#user_editRoleForm').form('load', row);
+	$('#user_editRole').show();
+	$('#user_editRole').window({
+		left:($(window).width()-340)/2,
+		top:($(window).height()-560)/2,					
+		width:340,
+		height:190,
+		modal:true
+	});
+	$('#user_editRole').show();
+	$('#user_editRole').window('open');
+}
+$('#user_editRole_addBtn').unbind('click').click(function(){
+	var id = $("#user_editRole_id").val(); 
+	var roleIds = $("#user_editRole_roleId").combobox("getValues"); 
+	if(roleIds==''){
+		eu.showMsg("请分配角色");
+		return false;
+	}
+	$.ajax({url:'/user/updateRole/'+id,data:{"roleIds":roleIds},type:'put',
+		success:function(data) {
+			if(data=="success"){
+				$('#userManager_dg').datagrid('reload');
+				$('#user_editRole').window('close');
+				$('#user_editRoleForm').form('clear');			
+			}else{
+				eu.showMsg(data);
+				$('#user_editRoleForm').form('clear');
+			}
+		},error : function(xhr,textStatus,errorThrown){
+			var result=JSON.parse(xhr.responseText);
+		    eu.showMsg(result.message);
+	    }
+	});	
+})
+$('#user_editRole_cancelBtn').unbind('click').click(function(){
+	$('#user_editRoleForm').form('clear');
+		$('#user_editRole').window('close');
+})
+//将从form中通过$('#form').serialize()获取的值转成json  
+var DataDeal = {  
+      formToJson: function (data) {  
+          data=data.replace(/&/g,"\",\"");  
+          data=data.replace(/=/g,"\":\"");  
+          data="{\""+data+"\"}";  
+          return decodeURIComponent(data);  
+       },  
+};  
+/*]]>*/
+</script>
+</html>

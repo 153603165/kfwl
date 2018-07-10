@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>登录</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="css/login.css" />
+</head>
+<body>
+	<section class="container">
+		<div class="login">
+			<h1>用户登录</h1>
+			<form name="f" th:action="@{/login}" method="post">
+				<p>
+					<input type="text" name="username" value="" placeholder="用户名" />
+				</p>
+				<p>
+					<input type="password" name="password" value="" placeholder="密码" />
+				</p>
+				<p class="submit">
+					<input type="submit" name="commit" value="登录" />
+				</p>
+			</form>
+		</div>
+
+	</section>
+
+	<div style="text-align: center; width: 100%;">
+		Copyright ©2018 <a
+			style="margin-left: 10px; color: #000000; text-decoration: underline"
+			href="http://www.kfwlkjwx.com">http://www.kfwlkjwx.com</a>
+	</div>
+</body>
+</html>
