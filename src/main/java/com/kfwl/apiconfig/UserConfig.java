@@ -47,7 +47,6 @@ public class UserConfig {
                 "卡服物流科技",//链接显示文字
                 "http://localhost:9090"//网站链接
         );
-
         return apiInfo;
     }
 
