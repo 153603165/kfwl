@@ -23,7 +23,6 @@ public class UserConfig {
     @SuppressWarnings("unchecked")
 	@Bean
     public Docket channelApi(){
-
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("用户Api接口")
                 .genericModelSubstitutes(DeferredResult.class)
