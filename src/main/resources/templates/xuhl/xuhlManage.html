@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+<div th:replace="include/include::html"></div>
+<iframe id="download_temp_iframe" style="display: none;"></iframe>
+
+    <div data-options="region:'north',title:'报表导出',collapsed:false,split:false,border:false"
+    style="padding: 0px; height: auto; width: 100%; overflow-y: hidden;">
+        <form id="xuhlManageExport_search_form" style="padding: 2px;">
+			日期：
+            <input id="startTime" style="width: 150px" name="startTime" class="easyui-my97" data-options="dateFmt:'yyyy/MM'"/>
+            	-
+            <input id="endTime" style="width: 150px" name="endTime" class="easyui-my97" data-options="dateFmt:'yyyy/MM'"/>
+			商品编号:
+            <input class="easyui-textbox" type="text" name="skuCode" id="skuCode" style="width: 100px" />
+			商品名称:
+            <input class="easyui-textbox" type="text" name="skuName" id="skuName" style="width: 200px" />
+           <!--  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onClick="loadData();">查询</a> -->
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onClick="downloadFile();">导出</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onClick="xuhlManageExport_clear();">清空</a>
+        </form>
+    </div>
+</body>
+<script type="text/JavaScript" th:inline="javascript">
+/*<![CDATA[*/
+  //弹出加载层
+    function load() {  
+        $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");  
+        $("<div class=\"datagrid-mask-msg\"></div>").html("正在上传，请稍候。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 45) / 2 });  
+    }  
+      
+    //取消加载层  
+    function disLoad() {  
+        $(".datagrid-mask").remove();  
+        $(".datagrid-mask-msg").remove();  
+    }
+  	// 清空
+  	function xuhlManageExport_clear() {
+  		xuhlManageExport_search_form.form("clear");
+  	}
+  	//下载
+	function downloadFile() {
+		var startTime=$("#startTime").val();
+		var endTime=$("#endTime").val();
+		var skuName=$("#skuName").val();
+		var skuCode=$("#skuCode").val();
+		if(startTime==''||endTime==''){
+			eu.showMsg("请完整填写年月");
+			return false;
+		}
+		if(startTime>endTime){
+			eu.showMsg("月份开始时间不能超过结束时间");
+			return false;
+		}
+		eu.showMsg("下载中，请稍后");
+		$('#download_temp_iframe').attr('src','/xuhlManage/exportXuhlManageExcel?dateFrom='+startTime+'&dateTo='+endTime+'&skuName='+encodeURI(encodeURI(skuName))+'&skuCode='+encodeURI(encodeURI(skuCode)));
+	}		
+	/*]]>*/
+</script>
+</html>

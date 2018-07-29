@@ -26,10 +26,10 @@
 			</div>
 			<div id="resourceType">
 				<b><span>账户菜单：</span></b> <input id="resourcesIds" name="resourcesIds" class="easyui-combotree"
-					data-options="method:'get',multiple:true,url:'/resource/geAllResources'" /><br /> <br />
+					data-options="method:'get',multiple:true,url:'/resource/geAllResources'" style="width: 130px;" /><br /> <br />
 			</div>
 			<div id="authorityType">
-				<b><span>账户权限：</span></b> <input id="authoritysIds" name="authoritysIds" class="easyui-combobox"
+				<b><span>账户权限：</span></b> <input id="authoritysIds" name="authoritysIds" class="easyui-combobox" style="width: 130px;" 
 					data-options="method:'get',multiple:true,valueField:'id',textField:'authName',url:'/authority/getAuthoritys'" /><br /> <br /> <br />
 			</div>
 			<button type="button" class="easyui-linkbutton" id="role_saveOrUpdate_addBtn">提交</button>
@@ -274,8 +274,8 @@ $('#role_saveOrUpdate_addBtn').unbind('click').click(function(){
 	}else if(roleName.indexOf(' ')>=0){
 		eu.showMsg('角色名不能包含空格');
 		return false;	
-	}else if(roleName.replace(/[^\u0000-\u00ff]/g,"aa").length>15){
-		eu.showMsg("名称最长为15个汉字或30个英文");
+	}else if(roleName.replace(/[^\u0000-\u00ff]/g,"aa").length>200){
+		eu.showMsg("名称最长为200个汉字");
 		return false;		
 	}
 	var resourcesIds = $("#resourcesIds").combotree("getValues"); 

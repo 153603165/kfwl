@@ -1,0 +1,235 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+	<div th:replace="include/include::html"></div>
+	<!--账户下的用户列表-->
+	<table id="purchaseRebate_dg" style="width: auto;"></table>
+	<!--菜单工具栏-->
+	<div id="purchaseRebate_toolbar" style="padding:2px 5px;">
+		<form method="POST" enctype="multipart/form-data"  id="purchaseRebate_upload_form">
+       		<input class="easyui-filebox" id="purchaseRebate_uploadFile" data-options="prompt:'请选择文件',buttonAlign:'left'" name="file" style="width:200px;"/>
+       		类型：
+       		<select id="purchaseRebate_search_type" name="type">
+       			<option value="1">采购退货</option>
+       			<option value="2">采购</option>
+       			<option value="3">售后退货</option>
+       		</select>
+       		<a href="#" type="button" onclick="uploadPurchaseRebate()" class="easyui-linkbutton" id="purchaseRebate_upload_form_btn" data-options="iconCls: 'icon-add'" style="width:70px">确认</a>&nbsp;&nbsp;&nbsp;
+			
+			<div style="float:right;margin-right:10px">
+				<input id="purchaseRebate_search_skuCode" data-options="width:80,prompt:'按商品id搜索'" class="easyui-textbox"/>
+	            <input type="text" class="easyui-textbox" name="skuName" id="purchaseRebate_search_skuName" data-options="width:130,prompt:'按商品名称模糊搜索'"/>
+				日期: <input id="purchaseRebate_datefrom" type="text" style="width:55px" class="easyui-my97" data-options=" editable:false,showSeconds: false ,dateFmt:'yyyy/MM'"/>  - 
+				<input id="purchaseRebate_dateto" type="text" style="width:55px" class="easyui-my97" data-options=" editable:false,showSeconds: false ,dateFmt:'yyyy/MM'"/> &nbsp;&nbsp;
+				<a href="#" id="purchaseRebate_searchdate" data-options="iconCls: 'icon-search'" class="easyui-linkbutton" onclick="purchaseRebate_searchdate_btn()" style="width:80px">查询</a>
+				<a href="javascript:void(0)" id="purchaseRebate_deleteBtn" class="easyui-linkbutton" onclick="delPurchaseRebate()" data-options="iconCls : 'icon-remove'">选中行删除</a>
+				<a href="javascript:void(0)" id="purchaseRebate_removeByConditionBtn" class="easyui-linkbutton" onclick="removeByCondition()">按左侧查询条件删除</a>
+			</div>
+        </form>
+	</div>
+</body>
+<script type="text/JavaScript" th:inline="javascript">
+/*<![CDATA[*/
+var purchaseRebate_row="";
+var id="";
+$(document).ready(function(){
+	var regName="";
+	$('#purchaseRebate_dg').datagrid({
+		url: '/purchaseRebate',
+//		toolbar: '#purchaseRebate_toolbar',
+		method:'get',
+		fitColumns:true,
+		striped: true,
+		rownumbers: true,
+		pagination: true, //分页控件 
+		pageNumber: 1,
+		pageSize: 10,
+		pageList: [10,20,40],
+		sortName: 'id',
+		pagePosition: 'both',
+		singleSelect: false,
+		selectOnCheck: true,
+		checkOnSelect: true,
+		onLoadSuccess: function(data) {
+		//待写
+		},
+		onLoadError: function(){
+			eu.showMsg("加载用户信息失败，请联系管理员！");
+		},		
+		columns: [
+			[
+			{
+				field: 'id',
+				title: 'id',
+				hidden: true,
+				sortable :true,
+				width: 50
+			}, {
+				field: 'createTime',
+				title: '日期',
+				width: 100,
+				sortable :true,
+				align: 'center'	,
+				formatter : function(value){
+                       var date = new Date(value);
+                       var y = date.getFullYear();
+                       var m = date.getMonth() + 1;
+                       var d = date.getDate();
+                       return y + '-' +m + '-' + d;
+                }
+			}, {
+				field: 'skuCode',
+				title: 'sku编号',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'skuName',
+				title: '商品名称',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			},{
+				field: 'type',
+				title: '类型',
+				width: 100,
+				sortable :true,
+				align: 'center',
+				formatter : function(value){
+                   if(value==1)
+                	   return "采购退货";
+                   else if(value==2)
+                	   return "采购";
+                   else if(value==3)
+                	   return "售后退货";
+             }
+			},{
+				field: 'num',
+				title: 'sku数量',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}, {
+				field: 'purchaseRebatePrice',
+				title: '采购价',
+				width: 100,
+				sortable :true,
+				align: 'center'
+			}]
+		],
+		toolbar:'#purchaseRebate_toolbar',
+		onSelect: function(rowIndex, rowData) {
+			purchaseRebate_row = rowData;
+			id=rowData.id;
+			regName = rowData.regName;
+		}
+	});
+})
+//查询按钮
+function purchaseRebate_searchdate_btn(){
+	var dateFrom=$("#purchaseRebate_datefrom").val();
+	var dateTo=$("#purchaseRebate_dateto").val();
+	var type=$("#purchaseRebate_search_type").val();
+	var skuCode=$("#purchaseRebate_search_skuCode").textbox('getValue');
+	var skuName=$("#purchaseRebate_search_skuName").textbox('getValue');
+	$('#purchaseRebate_dg').datagrid('options').pageNumber=1;
+	$('#purchaseRebate_dg').datagrid({ 
+		url: '/purchaseRebate',
+		method:'get',
+		queryParams:{
+			dateFrom:dateFrom,
+			dateTo:dateTo,
+			skuCode:skuCode,
+			skuName:skuName,
+			type:type
+		}
+	});
+}
+
+/**
+ *  删除
+ */
+function delPurchaseRebate(){
+	var ids = new Array();
+	var rows = $('#purchaseRebate_dg').datagrid('getSelections');
+	for(var i=0; i<rows.length; i++){
+		ids[i]= rows[i].id;
+	}
+	if(rows.length==0){
+		eu.showMsg("请选择一条记录");
+		return false;
+	}
+	$.messager.confirm('删除', '您想要删除吗？', function(r){
+	    if (r){
+	    	$.ajax({
+				url : '/purchaseRebate/' + ids,
+				type : 'delete',
+				success : function(data) {
+					$('#purchaseRebate_dg').datagrid('reload');
+				},error : function(xhr,textStatus,errorThrown){
+					var result=JSON.parse(xhr.responseText);
+				    eu.showMsg(result.message);
+			    }
+			});
+	    }
+	});
+}
+/**
+ * 按条件删除
+ */
+function removeByCondition(){
+	$.messager.confirm('删除', '您想要删除吗？', function(r){
+		var dateFrom=$("#purchaseRebate_datefrom").val();
+		var dateTo=$("#purchaseRebate_dateto").val();
+		var skuCode=$("#purchaseRebate_search_skuCode").textbox('getValue');
+		var skuName=$("#purchaseRebate_search_skuName").textbox('getValue');
+		if (r){
+			$.ajax({
+				url : '/purchaseRebate/removeByCondition',
+				type : 'delete',
+				data:{"para":Math.random(),"dateFrom":dateFrom,"dateTo":dateTo,"skuCode":skuCode,"skuName":skuName},
+				success : function(data) {
+					$('#purchaseRebate_dg').datagrid('reload');
+				},error : function(xhr,textStatus,errorThrown){
+					var result=JSON.parse(xhr.responseText);
+				    eu.showMsg(result.message);
+			    }
+			});
+		}
+		
+	});
+}
+function uploadPurchaseRebate(){
+	if($("#purchaseRebate_uploadFile").textbox('getValue')=="")return;
+	load();
+	$("#purchaseRebate_upload_form").form('submit', {
+        url: '/purchaseRebate/uploadPurchaseRebate',
+        data: $("#purchaseRebate_upload_form").serialize(),
+        type :'post',
+        success: function (result) {
+        	$("#purchaseRebate_uploadFile").textbox('setValue',"");
+        	$('#purchaseRebate_dg').datagrid('reload');
+        	disLoad();
+        	eu.showMsg("上传完成");
+        },error : function(xhr,textStatus,errorThrown){
+			var result=JSON.parse(xhr.responseText);
+		    eu.showMsg(result.message);
+	    }
+    });
+}
+//弹出加载层
+function load() {  
+    $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");  
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在上传，请稍候。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 45) / 2 });  
+}  
+  
+//取消加载层  
+function disLoad() {  
+    $(".datagrid-mask").remove();  
+    $(".datagrid-mask-msg").remove();  
+}
+/*]]>*/
+</script>	
+</html>

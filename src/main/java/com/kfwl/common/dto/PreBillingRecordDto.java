@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@ExcelTarget("billingRecordDto")
+@ExcelTarget("PreBillingRecordDto")
 public class PreBillingRecordDto {
 
 	@Excel(name = "序号")
