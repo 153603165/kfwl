@@ -1,6 +1,5 @@
 package com.kfwl.controller.xuhl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +127,7 @@ public class ExpressTrainController extends BasicController {
 	@PreAuthorize("hasAnyAuthority('expressTrain:edit')")
 	public void uploadExpressTrain(@RequestParam("file") MultipartFile file, HttpServletResponse response)
 			throws NormalException {
-		List<ExpressTrainDto> personList = ExcelUtil.importExcel(file, 1, 1, ExpressTrainDto.class);
+		List<ExpressTrainDto> personList = ExcelUtil.importExcel(file, 0, 1, ExpressTrainDto.class);
 		List<ExpressTrain> noDataExpressTrains = new ArrayList<>();
 		for (ExpressTrainDto ExpressTrainDto : personList) {
 			ExpressTrain br = new ExpressTrain();

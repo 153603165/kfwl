@@ -1,7 +1,5 @@
 package com.kfwl.controller.xuhl;
 
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +39,6 @@ import com.kfwl.utils.PageUtil;
 public class SaleController extends BasicController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(SaleController.class);
-
-	private static SimpleDateFormat excelSf = new SimpleDateFormat("yyyy/MM");
-	private static SimpleDateFormat excelTitleSf = new SimpleDateFormat("yyyy年MM月");
-	private static SimpleDateFormat excelDataSf = new SimpleDateFormat("yyyy_MM");
 	@Autowired
 	SaleService saleService;
 
@@ -135,7 +129,7 @@ public class SaleController extends BasicController {
 	@PreAuthorize("hasAnyAuthority('sale:edit')")
 	public void uploadSale(@RequestParam("file") MultipartFile file, HttpServletResponse response)
 			throws NormalException {
-		List<SaleDto> personList = ExcelUtil.importExcel(file, 1, 1, SaleDto.class);
+		List<SaleDto> personList = ExcelUtil.importExcel(file, 0, 1, SaleDto.class);
 		List<Sale> noDataSales = new ArrayList<>();
 		for (SaleDto SaleDto : personList) {
 			Sale br = new Sale();

@@ -1,6 +1,5 @@
 package com.kfwl.controller.xuhl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +132,7 @@ public class PurchaseRebateController extends BasicController {
 	@PreAuthorize("hasAnyAuthority('purchaseRebate:edit')")
 	public void uploadpurchaseRebate(@RequestParam("file") MultipartFile file, @RequestParam Integer type,
 			HttpServletResponse response) throws NormalException {
-		List<PurchaseRebateDto> personList = ExcelUtil.importExcel(file, 1, 1, PurchaseRebateDto.class);
+		List<PurchaseRebateDto> personList = ExcelUtil.importExcel(file, 0, 1, PurchaseRebateDto.class);
 		List<PurchaseRebate> noDatapurchaseRebates = new ArrayList<>();
 		for (PurchaseRebateDto purchaseRebateDto : personList) {
 			PurchaseRebate br = new PurchaseRebate();

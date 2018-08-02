@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kfwl.dao.xuhl.PurchaseRepository;
-import com.kfwl.entity.xuhl.ExpressTrain;
 import com.kfwl.entity.xuhl.Purchase;
 
 @Service

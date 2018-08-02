@@ -19,9 +19,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kfwl.common.vo.XuhlDataVo;
 import com.kfwl.dao.xuhl.SaleRepository;
-import com.kfwl.entity.crm.PreBillingRecord;
 import com.kfwl.entity.xuhl.Sale;
 
 @Service

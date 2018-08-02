@@ -1,6 +1,5 @@
 package com.kfwl.controller.xuhl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -131,7 +130,7 @@ public class CouponController extends BasicController {
 	@PreAuthorize("hasAnyAuthority('coupon:edit')")
 	public void uploadCoupon(@RequestParam("file") MultipartFile file, HttpServletResponse response)
 			throws NormalException {
-		List<CouponDto> personList = ExcelUtil.importExcel(file, 1, 1, CouponDto.class);
+		List<CouponDto> personList = ExcelUtil.importExcel(file, 0, 1, CouponDto.class);
 		List<Coupon> noDataCoupons = new ArrayList<>();
 		for (CouponDto CouponDto : personList) {
 			Coupon br = new Coupon();

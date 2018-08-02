@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kfwl.dao.xuhl.CouponRepository;
 import com.kfwl.entity.xuhl.Coupon;
-import com.kfwl.entity.xuhl.Sale;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
