@@ -207,8 +207,6 @@
 				<configuration>
 					<imageName>${project.artifactId}:${project.version}</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-					<skipDockerBuild>false</skipDockerBuild>
-					<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE> 
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
