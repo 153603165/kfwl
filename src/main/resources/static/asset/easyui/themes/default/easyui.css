@@ -612,6 +612,7 @@
   left: 0;
   top: 0;
   z-index: 10;
+  background:url('../../themes/default/images/blank.gif');
 }
 .l-btn-disabled .filebox-label {
   cursor: default;
