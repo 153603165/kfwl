@@ -77,10 +77,14 @@ public class RoleService {
 		if (roleVo.getResourcesIds() != null && roleVo.getResourcesIds().size() > 0) {
 			List<Resource> resources = resourceService.listByIds(roleVo.getResourcesIds());
 			role.setResources(resources);
+		} else {
+			role.setResources(null);
 		}
 		if (roleVo.getAuthoritysIds() != null && roleVo.getAuthoritysIds().size() > 0) {
 			List<Authority> authoritys = authorityService.listByIds(roleVo.getAuthoritysIds());
 			role.setAuthoritys(authoritys);
+		} else {
+			role.setAuthoritys(null);
 		}
 		Role result = roleRepository.save(role);
 		return result;
