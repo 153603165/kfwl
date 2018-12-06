@@ -5,12 +5,17 @@ import java.util.List;
 
 import com.kfwl.entity.base.Resource;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Menu {
 	private Long id;
 	private String menuname;
+	private String iconCls;
 	private String url;
 	private List<Menu> menus;
 
@@ -22,8 +27,8 @@ public class Menu {
 			if (resource.getParentResource() == null) {
 				Menu tempMenu = new Menu();
 				tempMenu.setId(resource.getId());
-				tempMenu.setMenuname("<span style='margin-right:2px;' class='tree-icon tree-file "
-						+ resource.getIconCls() + "'></span>" + resource.getResourceName());
+				tempMenu.setIconCls(resource.getIconCls());
+				tempMenu.setMenuname(resource.getResourceName());
 				if (resource.getType().equals(1)) {
 					tempMenu.setUrl(resource.getMenuUrl());
 				}
@@ -36,8 +41,9 @@ public class Menu {
 				if (resource.getParentId() != null && parentMenu.getId().equals(resource.getParentId())) {
 					Menu tempMenu = new Menu();
 					tempMenu.setId(resource.getId());
-					tempMenu.setMenuname("<span style='padding-top:8px;margin-right:2px;' class='tree-icon tree-file "
-							+ resource.getIconCls() + "'></span>" + resource.getResourceName());
+					tempMenu.setIconCls(resource.getIconCls());
+
+					tempMenu.setMenuname(resource.getResourceName());
 					if (resource.getType().equals(1)) {
 						tempMenu.setUrl(resource.getMenuUrl());
 					}

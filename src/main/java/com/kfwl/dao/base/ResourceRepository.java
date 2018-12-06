@@ -11,15 +11,13 @@ import org.springframework.data.repository.query.Param;
 import com.kfwl.entity.base.Resource;
 
 /**
- * 用户管理
+ * 资源菜单管理
  */
 public interface ResourceRepository extends JpaRepository<Resource, Long>, JpaSpecificationExecutor<Resource> {
 
-	@Query(value = "from Resource r where r.parentResource is null")
-	List<Resource> listMenuData(Sort sort);
+	List<Resource> getByParentResourceIsNull(Sort sort);
 
-	@Query(value = "from Resource r where r.parentResource.id=:id")
-	List<Resource> listMenuDataById(@Param("id") Long id, Sort sort);
+	List<Resource> getByParentResourceId(Long id, Sort sort);
 
 	@Query(value = "select Max(seq) from Resource")
 	Long getMaxSeq();

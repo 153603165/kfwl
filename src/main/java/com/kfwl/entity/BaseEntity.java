@@ -80,7 +80,7 @@ public class BaseEntity implements Serializable, Cloneable {
 	 * 状态可用 0：可用 1：已删除
 	 */
 	@Column(name = "is_delete")
-	protected Integer delete = 0;
+	protected Boolean delete = false;
 
 	public BaseEntity clone() {
 		BaseEntity o = null;

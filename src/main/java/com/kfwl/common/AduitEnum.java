@@ -1,12 +1,16 @@
 package com.kfwl.common;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * 
  * 审核状态 枚举类型.
  * 
  * 
  */
-
+@Getter
+@AllArgsConstructor
 public enum AduitEnum {
 	/**
 	 * 待审核 (0)
@@ -20,7 +24,6 @@ public enum AduitEnum {
 	 * 不通过 (2)
 	 */
 	FAIL(2, "不通过");
-	
 
 	/**
 	 * 值 Integer型
@@ -31,27 +34,6 @@ public enum AduitEnum {
 	 */
 	private final String description;
 
-	AduitEnum(Integer value, String description) {
-		this.value = value;
-		this.description = description;
-	}
-
-	/**
-	 * 获取值
-	 * @return value
-	 */
-	public Integer getValue() {
-		return value;
-	}
-
-	/**
-     * 获取描述信息
-     * @return description
-     */
-	public String getDescription() {
-		return description;
-	}
-
 	public static AduitEnum getAuditStateByValue(Integer value) {
 		if (null == value)
 			return null;
@@ -61,7 +43,7 @@ public enum AduitEnum {
 		}
 		return null;
 	}
-	
+
 	public static AduitEnum getAuditStateByDesc(String description) {
 		if (null == description)
 			return null;

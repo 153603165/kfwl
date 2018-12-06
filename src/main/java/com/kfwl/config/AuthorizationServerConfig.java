@@ -55,16 +55,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.withClientDetails(clientDetails());
-		clients.inMemory().withClient("acme").secret("acmesecret").scopes("read", "write").autoApprove(true)// 开启默认授权
-				.authorizedGrantTypes("password", "authorization_code", "refresh_token");// 取消code授权模式，保留账号密码授权模式
+		clients.inMemory().withClient("acme") // 设置客户端id
+				.secret("acmesecret") // 设置客户端秘钥
+				.scopes("read", "write") // 权限规则
+				.autoApprove(true) // 开启默认授权
+				.authorizedGrantTypes("password", "authorization_code", "refresh_token") // code授权模式，账号密码授权模式 刷新token
+				.accessTokenValiditySeconds(14400) // 设置token过期时间
+				.refreshTokenValiditySeconds(86400); // 设置refreshToken过期时间
 	}
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authenticationManager(authenticationManager);
-		endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager);
-		endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
-		endpoints.tokenStore(tokenStore());
-		endpoints.userDetailsService(userDetailsService);// 如果需要refresh_token这个一定要加上
+		endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager)
+				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+				.userDetailsService(userDetailsService);// 如果需要refresh_token这个一定要加上
 	}
 }

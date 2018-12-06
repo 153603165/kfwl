@@ -77,9 +77,10 @@ public class UserController extends BasicController {
 	public ResponseEntity<String> getUsers(HttpServletRequest request, @RequestParam(required = true) int page,
 			@RequestParam(required = true) int rows, @RequestParam(required = true) String sort,
 			@RequestParam(required = true) String order, @RequestParam(required = false) String username,
-			@RequestParam(required = false) String dateFrom, @RequestParam(required = false) String dateTo) {
+			@RequestParam(required = false) String realName, @RequestParam(required = false) String dateFrom,
+			@RequestParam(required = false) String dateTo) {
 		Pageable pageable = new PageRequest(page - 1, rows, Sort.Direction.fromString(order), sort);
-		Page<User> users = userService.pageUsers(pageable, username, dateFrom, dateTo);
+		Page<User> users = userService.pageUsers(pageable, username, realName, dateFrom, dateTo);
 		Map<String, Object> page2Map = PageUtil.page2Map(users);
 		return new ResponseEntity<String>(JSONObject.toJSONString(page2Map), HttpStatus.OK);
 	}
@@ -104,13 +105,15 @@ public class UserController extends BasicController {
 		List<Role> roles = roleService.listByIds(userVo.getRoleIds());
 		user.setRoles(roles);
 		user.setUsername(userVo.getUsername());
+		user.setRealName(userVo.getRealName());
+		user.setMobile(userVo.getMobile());
 		user.setPassword(new BCryptPasswordEncoder(8).encode(userVo.getPassword()));
 		userService.saveOrUpdate(user);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 
 	/**
-	 * 修改用户角色
+	 * 修改用户信息
 	 * 
 	 * @param request
 	 * @param id
@@ -119,13 +122,16 @@ public class UserController extends BasicController {
 	 */
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority('user:edit')")
-	@RequestMapping(value = "/updateRole/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateRole(HttpServletRequest request,
+	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateUser(HttpServletRequest request,
 			@PathVariable(required = true, value = "id") @RequestBody Long id,
+			@RequestParam(required = true) String realName, @RequestParam(required = true) String mobile,
 			@RequestParam(required = true, value = "roleIds[]") @RequestBody Long[] roleIds) {
 		User user = userService.getById(id);
 		List<Role> role = roleService.listByIds(Arrays.asList(roleIds));
 		user.setRoles(role);
+		user.setRealName(realName);
+		user.setMobile(mobile);
 		userService.saveOrUpdate(user);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
@@ -141,15 +147,20 @@ public class UserController extends BasicController {
 	 */
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority('user:edit')")
-	@RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
+	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.PUT)
 	public ResponseEntity<String> updateUser(@RequestParam(required = true) String oldPassword,
-			@RequestParam(required = true) String newPassword) throws BusinessException {
+			@RequestParam(required = true) String newPassword, @RequestParam(required = true) String mobile,
+			@RequestParam(required = true) String realName) throws BusinessException {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = userService.getByUsername(userDetails.getUsername());
-		if (!new BCryptPasswordEncoder(8).matches(oldPassword, user.getPassword())) {
-			throw new BusinessException("原密码错误，请重新输入");
+		if (!newPassword.equals("") && !oldPassword.equals("")) {
+			if (!new BCryptPasswordEncoder(8).matches(oldPassword, user.getPassword())) {
+				throw new BusinessException("原密码错误，请重新输入");
+			}
+			user.setPassword(new BCryptPasswordEncoder(8).encode(newPassword));
 		}
-		user.setPassword(new BCryptPasswordEncoder(8).encode(newPassword));
+		user.setMobile(mobile);
+		user.setRealName(realName);
 		userService.saveOrUpdate(user);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}

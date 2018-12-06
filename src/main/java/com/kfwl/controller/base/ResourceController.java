@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -63,16 +62,12 @@ public class ResourceController extends BasicController {
 	@PreAuthorize("hasAnyAuthority('resource:view')")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<String> getResources(HttpServletRequest request, @RequestParam(required = false) Long id,
-			@RequestParam(required = false) String sort, @RequestParam(required = false) String order) {
-		if (StringUtils.isBlank(sort)) {
-			sort = "seq";
-		}
-		if (StringUtils.isBlank(order)) {
-			order = "asc";
-		}
+			@RequestParam(required = false, defaultValue = "seq") String sort,
+			@RequestParam(required = false, defaultValue = "asc") String order) {
+
 		Order or = new Order(Direction.fromString(order), sort);
 		Sort s = new Sort(or);
-		List<Resource> resources = resourceService.listAuthorityMenus(s, id);
+		List<Resource> resources = resourceService.listResourceMenus(s, id);
 		List<TreeGrid> tgList = TreeGrid.resourceToTreeGrid(resources);
 		return new ResponseEntity<String>(JSONObject.toJSONString(tgList), HttpStatus.OK);
 	}
@@ -88,12 +83,12 @@ public class ResourceController extends BasicController {
 	 */
 	@ResponseBody
 	@PreAuthorize("hasAnyAuthority('resource:view')")
-	@RequestMapping(value = "/geAllResources", method = RequestMethod.GET)
-	public ResponseEntity<String> geAllResources(HttpServletRequest request, @RequestParam(required = false) Long id,
+	@RequestMapping(value = "/getAllResources", method = RequestMethod.GET)
+	public ResponseEntity<String> getAllResources(HttpServletRequest request, @RequestParam(required = false) Long id,
 			Model model) {
 		Order or = new Order(Direction.fromString("asc"), "seq");
 		Sort s = new Sort(or);
-		List<Resource> resources = resourceService.listAuthorityMenus(s, id);
+		List<Resource> resources = resourceService.listResourceMenus(s, id);
 		List<Combobox> cbList = Combobox.resourceToCombobox(resources);
 		cbList.stream().forEach(cb -> {
 			if (id != null && cb.getId().equals(id))

@@ -99,7 +99,6 @@ public class ExcelUtil {
 		List<T> list = null;
 		try {
 			list = ExcelImportUtil.importExcel(file.getInputStream(), pojoClass, params);
-			System.out.println(1);
 		} catch (NoSuchElementException e) {
 			throw new NormalException("excel文件不能为空");
 		} catch (Exception e) {

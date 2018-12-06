@@ -22,14 +22,19 @@ import com.kfwl.security.AuditableListener;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
+ * 角色类
+ * 
+ * @author Administrator
  *
  */
 @Table(name = "sys_role")
 @Setter
 @Getter
 @Entity
+@ToString
 @NoArgsConstructor
 @EntityListeners(AuditableListener.class)
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })

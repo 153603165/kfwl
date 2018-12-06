@@ -23,12 +23,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kfwl.entity.AduitBaseEntity;
 import com.kfwl.security.AuditableListener;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 用户类
+ * 
+ * @author Administrator
+ *
+ */
 @Entity
 @NoArgsConstructor
 @ToString
@@ -47,13 +52,27 @@ public class User extends AduitBaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 登入名
+	 */
 	@Column(nullable = false)
-	@Excel(name = "姓名", orderNum = "0")
 	private String username;
 
+	/**
+	 * 姓名
+	 */
 	@Column(nullable = false)
-	@Excel(name = "密码", orderNum = "1")
+	private String realName;
+
+	/**
+	 * 密码
+	 */
+	@Column(nullable = false)
 	private String password;
+	/**
+	 * 电话
+	 */
+	private String mobile;
 
 	/**
 	 * 有序的关联对象集合

@@ -9,14 +9,13 @@ function InitLeftMenu() {
 
     $(".easyui-accordion").empty();
     var menulist = "";
-   
     $.each(_menus.menus, function(i, n) {
-        menulist += '<div title="'+n.menuname+'"  icon="'+n.icon+'" style="overflow:auto;">';
-		menulist += '<ul>';
+        menulist += "<div title=\"<span style='margin-right:2px;' class='tree-icon tree-file "+n.iconCls+"'></span>"+n.menuname+"\" style=\"overflow:auto;\">";
+		menulist += "<ul>";
         $.each(n.menus, function(j, o) {
-			menulist += '<li><div><a target="'+ o.url+'" href="' + o.url + '" ><span class="icon '+o.icon+'" ></span>' + o.menuname + '</a></div></li> ';
+			menulist += "<li><div><a target='"+o.url+"' href='" + o.url + "' ><span style='padding-top:8px;margin-right:2px;' class='tree-icon tree-file "+o.iconCls+"'></span>"+o.menuname+"</a></div></li> ";
         })
-        menulist += '</ul></div>';
+        menulist += "</ul></div>";
     })
 
 	$(".easyui-accordion").append(menulist);

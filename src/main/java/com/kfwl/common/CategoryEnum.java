@@ -1,11 +1,22 @@
 package com.kfwl.common;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * 开票报表类别 申丝/众卡
  * 
  */
+@Getter
+@AllArgsConstructor
 public enum CategoryEnum {
+	/**
+	 * 众卡类型
+	 */
 	ZHONGKA("众卡", "众卡"),
+	/**
+	 * 申丝类型
+	 */
 	SHENSI("申丝", "申丝");
 
 	/**
@@ -16,29 +27,6 @@ public enum CategoryEnum {
 	 * 描述 String型
 	 */
 	private final String description;
-
-	CategoryEnum(String value, String description) {
-		this.value = value;
-		this.description = description;
-	}
-
-	/**
-	 * 获取值
-	 * 
-	 * @return value
-	 */
-	public String getValue() {
-		return value;
-	}
-
-	/**
-	 * 获取描述信息
-	 * 
-	 * @return description
-	 */
-	public String getDescription() {
-		return description;
-	}
 
 	public static CategoryEnum getCategoryTypeByValue(String value) {
 		if (null == value)
@@ -51,7 +39,7 @@ public enum CategoryEnum {
 	}
 
 	public static CategoryEnum getReplyStateByDesc(String description) {
-		if (null == description)
+		if (null == description || "".equals(description))
 			return null;
 		for (CategoryEnum _enum : CategoryEnum.values()) {
 			if (description.equals(_enum.getDescription()))

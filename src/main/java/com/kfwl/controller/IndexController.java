@@ -1,5 +1,6 @@
 package com.kfwl.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kfwl.common.AduitEnum;
 import com.kfwl.common.easyui.Menu;
@@ -25,6 +28,12 @@ import com.kfwl.service.base.UserService;
 public class IndexController extends BasicController {
 	@Autowired
 	UserService userService;
+
+	@GetMapping("/oauth/user")
+	@ResponseBody
+	public Principal user(Principal principal) {
+		return principal;
+	}
 
 	@RequestMapping(value = "/index")
 	public String index(Model model, HttpServletRequest request) throws BusinessException {

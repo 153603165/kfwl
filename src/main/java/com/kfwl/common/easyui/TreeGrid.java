@@ -7,9 +7,13 @@ import org.springframework.beans.BeanUtils;
 
 import com.kfwl.entity.base.Resource;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class TreeGrid {
 	private Long id;
 	private String resourceName;
@@ -32,3 +36,4 @@ public class TreeGrid {
 
 	}
 }
+	

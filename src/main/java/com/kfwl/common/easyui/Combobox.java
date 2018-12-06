@@ -3,17 +3,19 @@ package com.kfwl.common.easyui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import com.kfwl.entity.base.Resource;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * easyui可装载组合框combobox模型.
  * 
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Combobox {
 
 	/**
@@ -45,58 +47,6 @@ public class Combobox {
 	 */
 	private String state;
 
-	public Combobox() {
-		super();
-	}
-
-	/**
-	 *
-	 * @param value
-	 *            值域
-	 * @param text
-	 *            文本域
-	 */
-	public Combobox(Long id, String text) {
-		super();
-		this.id = id;
-		this.text = text;
-	}
-
-	/**
-	 * 
-	 * @param value
-	 *            值域
-	 * @param text
-	 *            文本域
-	 * @param group
-	 *            分组
-	 */
-	public Combobox(Long id, String text, String group) {
-		super();
-		this.id = id;
-		this.text = text;
-		this.group = group;
-	}
-
-	/**
-	 * 
-	 * @param value
-	 *            值域
-	 * @param text
-	 *            文本域
-	 * @param group
-	 *            分组
-	 * @param selected
-	 *            是否选中
-	 */
-	public Combobox(Long id, String text, String group, boolean selected) {
-		super();
-		this.id = id;
-		this.text = text;
-		this.group = group;
-		this.selected = selected;
-	}
-
 	public static List<Combobox> resourceToCombobox(List<Resource> resources) {
 		List<Combobox> cbList = new ArrayList<>();
 		for (Resource au : resources) {
@@ -113,8 +63,4 @@ public class Combobox {
 
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
 }
