@@ -16,16 +16,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<xstream.version>1.4.7</xstream.version>
 		<pagehelper.version>5.0.0</pagehelper.version>
 		<commons-lang3.version>3.7</commons-lang3.version>
-		<fluent-hc.version>4.5.2</fluent-hc.version>
 		<guava.version>21.0</guava.version>
 		<fastjson.version>1.2.47</fastjson.version>
-		<easypoi.version>3.1.0</easypoi.version>
 		<springfox-swagger.version>2.6.0</springfox-swagger.version>
-		<sword-lang.version>2.0.0</sword-lang.version>
-		<jxl.version>2.6.12</jxl.version>
 
 	</properties>
 
@@ -64,13 +59,6 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
-		<!-- xml工具 -->
-		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>${xstream.version}</version>
-		</dependency>
-
 		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -87,21 +75,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3.version}</version>
-		</dependency>
-		<!-- http协议工具 -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>fluent-hc</artifactId>
-			<version>${fluent-hc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
 		</dependency>
 
 
@@ -131,29 +104,6 @@
 			<artifactId>spring-security-oauth2</artifactId>
 		</dependency>
 
-		<!-- excel工具 -->
-		<dependency>
-			<groupId>cn.afterturn</groupId>
-			<artifactId>easypoi-base</artifactId>
-			<version>${easypoi.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.afterturn</groupId>
-			<artifactId>easypoi-web</artifactId>
-			<version>${easypoi.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.afterturn</groupId>
-			<artifactId>easypoi-annotation</artifactId>
-			<version>${easypoi.version}</version>
-		</dependency>
-		<!-- jxl -->
-		<dependency>
-			<groupId>net.sourceforge.jexcelapi</groupId>
-			<artifactId>jxl</artifactId>
-			<version>${jxl.version}</version>
-		</dependency>
-
 		<!-- api可视化界面 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -164,11 +114,6 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>${springfox-swagger.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sword.lang</groupId>
-			<artifactId>sword-lang</artifactId>
-			<version>${sword-lang.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
