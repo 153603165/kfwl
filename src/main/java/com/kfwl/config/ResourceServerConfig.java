@@ -24,11 +24,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .requestMatchers()
             .antMatchers("/api/**","/oauth/user")
             .and().authorizeRequests()
-            .antMatchers(new String[]{"/login","/asset/**","/js/**","/css/**","/img/**","/images/**","/fonts/**","/**/favicon.ico"}).permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().loginPage("/login")
-            .and()
-            .logout().permitAll();
+            .anyRequest().authenticated();
     }
 }
